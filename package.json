@@ -1,8 +1,8 @@
 {
-  "title": "Full Width Pics",
-  "name": "startbootstrap-full-width-pics",
+  "title": "Full Slider",
+  "name": "startbootstrap-full-slider",
   "version": "4.0.0-beta",
-  "description": "A HTML template featuring sections with full width image backgrounds built with Bootstrap",
+  "description": "A full page image slider HTML template built with Bootstrap",
   "keywords": [
     "css",
     "sass",
@@ -11,9 +11,9 @@
     "theme",
     "template"
   ],
-  "homepage": "https://startbootstrap.com/template-overviews/full-width-pics",
+  "homepage": "https://startbootstrap.com/template-overviews/full-slider",
   "bugs": {
-    "url": "https://github.com/BlackrockDigital/startbootstrap-full-width-pics/issues",
+    "url": "https://github.com/BlackrockDigital/startbootstrap-full-slider/issues",
     "email": "feedback@startbootstrap.com"
   },
   "license": "MIT",
@@ -23,7 +23,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/BlackrockDigital/startbootstrap-full-width-pics.git"
+    "url": "https://github.com/BlackrockDigital/startbootstrap-full-slider.git"
   },
   "dependencies": {
     "bootstrap": "^4.0.0-beta",
