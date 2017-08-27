@@ -5,7 +5,7 @@
 			background-color: rgba(64, 64, 64, 0.5)
   		}
   		.navbar-brand:hover{
-  			text-shadow: 0 0 4px white;
+        color: rgba(0,0,0,.5);
   		}
   		.navbar .navbar-brand{
   			color: white;
