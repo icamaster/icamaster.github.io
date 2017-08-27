@@ -1,8 +1,8 @@
 {
-  "title": "Thumbnail Gallery",
-  "name": "startbootstrap-thumbnail-gallery",
+  "title": "Full Width Pics",
+  "name": "startbootstrap-full-width-pics",
   "version": "4.0.0-beta",
-  "description": "A one column portfolio template built with Bootstrap",
+  "description": "A HTML template featuring sections with full width image backgrounds built with Bootstrap",
   "keywords": [
     "css",
     "sass",
@@ -11,9 +11,9 @@
     "theme",
     "template"
   ],
-  "homepage": "https://startbootstrap.com/template-overviews/thumbnail-gallery",
+  "homepage": "https://startbootstrap.com/template-overviews/full-width-pics",
   "bugs": {
-    "url": "https://github.com/BlackrockDigital/startbootstrap-thumbnail-gallery/issues",
+    "url": "https://github.com/BlackrockDigital/startbootstrap-full-width-pics/issues",
     "email": "feedback@startbootstrap.com"
   },
   "license": "MIT",
@@ -23,7 +23,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/BlackrockDigital/startbootstrap-thumbnail-gallery.git"
+    "url": "https://github.com/BlackrockDigital/startbootstrap-full-width-pics.git"
   },
   "dependencies": {
     "bootstrap": "^4.0.0-beta",
