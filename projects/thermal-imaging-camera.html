@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="Embedded Projects" content="">
+        <meta name="Cezar Chirila" content="">
+        <title>Cezar's Page</title>
+        <!-- Bootstrap core CSS -->
+        <link href="../vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
+        <!-- Custom styles for this template -->
+        <link href="../css/3-col-portfolio.css" rel="stylesheet"
+        </head>
+        <body>
+            <!-- Navigation -->
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarResponsive">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="../index.html">Home
+                                    <span class="sr-only">(current)</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../about.html">About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a target="_blank" class="nav-link" href="https://epilepsynerd.wordpress.com/">Blog</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="../contact.html">Contact</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <div class="container" style="padding-top: 5%">
+                <p >The Thermal Imaging Camera is my diploma project which was necessary to get my Engineer Diploma (BSc). I got the idea for the project whilst working at Continental where I found that using a TIC (Thermal Imaging Camera) is fast and useful for hardware debugging, especially for power electronics.</p>
+                <p >I was given the MLX90621 sensor (actually 2 pcs) by Melaxis as samples for being a student, for which I am very grateful. Therefore, the development begun.
+                    After careful consideration, I chose the components and the resulting specifications of the device can be seen below:
+                <img class = "center-img" src="../images/TIC/specs.png" alt="Specifications" style="width: 100%; height: auto;"></p>
+                <p> One thing that I have omitted from the specifications is the VGA CMOS Camera Sensor, which can be seen in the rendered picture above. Unfortunately, due to time constraints I did not have time to finish implementing this in software, but it is functional from a hardware standpoint (with proper power supplies and clock input). Otherwise, the device is fully functional. At the end of this page there is a video where you can see it working. </p>
+                <p>I have designed the PCB in Altium as I have never used it before and wanted to familiarise myself with it as it is seen as a professional tool. Below you can the unpopulated and the populated PCB. I've had them made at Elecrow and they turned out pretty great. I soldered them by hand.</p>
+                    <img class = "center-img" src="../images/TIC/unpopulatedPCB.jpg" alt="Unpopulated PCB" style="width: 65% ; height: auto;">
+                    <figcaption style="text-align: center">Unpopulated PCB</figcaption>
+                    <img class = "center-img" src="../images/TIC/populatedPCB.jpg" alt="Populated PCB" style="width: 80%; height: auto;">
+                <figcaption style="text-align: center">Populated PCB</figcaption>
+                <p> I have implemented several features for this camera: </p>
+                <ul>
+                    <li>Ironbow color palette (Similar to what FLIR uses) <img src="../images/TIC/ironbow.png" alt="Ironbow color palette" style="width: 10%; height: auto;"></li>
+                    <li>Minimum and maximum temperature selection: Manual or Automatic; Maximizing the usage of the color palette -> Better contrast</li>
+                    <li>Save data (.csv) / image (.bmp) to SD Card (the BMP implementation was such a pain to write from scratch)</li>
+                    <li>Interpolation: Nearest Neighbour and Bilinear (because the imaging sensor only has a resolution of 16 x 4). The top of two fingers:</li><br>
+                    <img class = "center-img" src="../images/TIC/nearest.png" alt="Neareast Neighbour Interpolation" style="width: 65% ; height: auto;">
+                    <figcaption style="text-align: center">Neareast Neighbour Interpolation</figcaption><br>
+                    <img class = "center-img" src="../images/TIC/bilinearinterpolation.png" alt="Bilinear Interpolation" style="width: 65% ; height: auto;">
+                    <figcaption style="text-align: center">Bilinear Interpolation</figcaption><br>
+                    <li>Panorama feature: Simply stiches 4 images which the user has to align. Panorama thermal image of my hand:</li><br>
+                    <img class = "center-img" src="../images/TIC/panorama.png" alt="Panorama" style="width: 65% ; height: auto;">
+                    <figcaption style="text-align: center">Panorama Thermal Image</figcaption><br>
+                    <li>Serial passthrough using the USB port (There is a USB to Serial IC onboard - CH340g)</li>
+                    <li>Desktop application written in electron, so the TIC becomes sort of a thermal webcam by using the serial passthrough</li><br>
+                    <img class = "center-img" src="../images/TIC/desktopapp.png" alt="Desktop Application" style="width: 100% ; height: auto;">
+                    <figcaption style="text-align: center">Desktop Application written in Javascript using Electron</figcaption><br>
+                    <li>Variable LCD brightness via PWM and many minor things (show FPS, select whose pixel temperature to see)</li>
+                </ul>
+                <p>If you want to read my whole thesis based on this project I would 1. Be pleasantly surprised 2. Totally send you a copy. Use the contact form for more details, I usually try to reply as fast as possible. Finally, you can see a video of the device below:</p>
+                <div class="embed-responsive embed-responsive-16by9">
+                <iframe class="embed-responsive-item" src="https://drive.google.com/file/d/1w-BcO_LiVbeAUukuQC4f0MvPbckWAIrp/preview"></iframe>
+                </div><br><br>
+            </div>
+            <!-- /.container -->
+            <!-- Footer -->
+            <footer class="footer py-5 bg-dark">
+                <div class="container">
+                    <p class="m-0 text-center text-white">Copyright &copy; CezarChirila.com <script type="text/javascript">document.write(new Date().getFullYear());</script></p>
+                </div>
+                <!-- /.container -->
+            </footer>
+            <!-- Bootstrap core JavaScript -->
+            <script src="../vendor/jquery/jquery.min.js"></script>
+            <script src="../vendor/popper/popper.min.js"></script>
+            <script src="../vendor/bootstrap/js/bootstrap.min.js"></script>
+        </body>
+    </html>
