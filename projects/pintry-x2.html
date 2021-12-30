@@ -44,22 +44,40 @@
                 </div>
             </nav>
             <div class="container" style="padding-top: 5%">
+            	<h2>Introduction</h2>
                 <p >The Pintry X2 is a two bay NAS (Network Attached Storage) based on the Raspberry Pi Compute Module 4. It uses the ASMedia AS1061 PCIe to Sata bridge to connect up to 2 drives (3.5'/2.5' HDD or 2.5' SSD) to the SoM running Linux. </p>
-                <p>The project is open source and the repository can be found <a href="https://github.com/icamaster/Pintry">here</a>.</p>
-                <p >This is still a work a progress. So far I have gotten the schematic laid out, which you can see below (click on the images to be able to clearly read them or see full PDF schematic <a href="../projects/Pintry-X2.pdf">here</a>):
-                    <div id="schematic">
-                        <figcaption>Top level overview</figcaption style="">
-                        <img class = "center-img" src="../images/PINTRY/Pintry-X2-1.png" alt="Overview" style="width: 50%; height: auto;">
-                        <figcaption>Power Supply</figcaption style="">
-                        <img class = "center-img" src="../images/PINTRY/Pintry-X2-2.png" alt="Power Supply" style="width: 50%; height: auto;">
-                        <figcaption>CM4 Ethernet GPIO</figcaption style="">
-                        <img class = "center-img" src="../images/PINTRY/Pintry-X2-3.png" alt="CM4 Ethernet GPIO" style="width: 50%; height: auto;">
-                        <figcaption>CM4 USB PCIe</figcaption style="">
-                        <img class = "center-img" src="../images/PINTRY/Pintry-X2-4.png" alt="CM4 USB PCIe" style="width: 50%; height: auto;">
-                        <figcaption>PCIe to SATA</figcaption style="">
-                        <img class = "center-img" src="../images/PINTRY/Pintry-X2-5.png" alt="PCIe to SATA" style="width: 50%; height: auto;">
-                    </div>
-                </p>
+                <p>The project is open source and the repository can be found <a href="https://github.com/icamaster/Pintry">here</a>. In the repository you can find the Kicad 6.0 project and the manufacturing and assembly files (Gerbers, BoM, interactive BoM) in the OutputJob folder as well as the PDF schematic and STEP file of the board. The STEP file of the enclosure and the STLs can be found in the 'Enclosure' folder.  </p>
+                <p >A first version of the project has been built and tested and I am succesfully using it as my own personal NAS. The release version, V1.1, has not been built and tested, but it includes all the fixes found after troubleshooting V1.0.
+                <img class = "center-img" src="../images/PINTRY/PCBfront.jpg" alt="Pintry-X2 PCB Front" style="width: 65% ; height: auto;">
+                <figcaption style="text-align: center">Pintry-X2 PCB Front</figcaption><br>
+                <img class = "center-img" src="../images/PINTRY/PCBback.jpg" alt="Pintry-X2 PCB Back" style="width: 65% ; height: auto;">
+                <figcaption style="text-align: center">Pintry-X2 PCB Back</figcaption><br>
+                <h2>Features</h2>
+                <ul>
+                    <li>Supports both CM4 and CM4 lite variants</li>
+                    <li>2 x SATA ports with power using ASM1061. It should work with both 2.5' and 3.5' HDDs/SSDs but so far it has only been tested with 2.5' SSDs (Western Digital WDS500G2B0A)</li>
+                    <li>On/Off switch - Can both wake up the CM4 or shut it down (see Device Tree Overlay section)</li>
+                    <li>12V Input Power (max 5A, required for 3.5' drives)</li>
+                    <li>USB 2.0 Host port for connecting USB devices and a microUSB Device port for updating the eMMC on CM4</li>
+                    <li>Expander header for access to various GPIO</li>
+                    <img class = "center-img" src="../images/PINTRY/Ports.jpg" alt="Pintry-X2 Ports" style="width: 65% ; height: auto;">
+                    <figcaption style="text-align: center">Pintry-X2 Ports</figcaption><br>
+                </ul>
+                <h2>ASMedia ASM1061</h2>
+                <p>The entire project revolved around this chip, the ASMedia ASM1061. Unfortunately you cannot buy these from your usual distributors (Digikey, Mouser, etc.) and ASMedia does not sell them or sends samples to individuals. I have managed to get my hands on a few from Taobao (using TBFocus as a broker). Another option would be to buy them from aliexpress, although stock is pretty scarce. Winsource is another alternative, although a bit pricy. Datasheet is not public, but you can find it on the internet as other engineers have accidentally shared it. </p>
+                <h2>Enclosure</h2>
+                The enclosure is pretty basic, as it supports only 2.5' drives. For better thermals, there are vents on both halves and there you have an option to add a 60mm fan as you can see in the picture below. For better thermals, I have also added a RAM heatsink to the ASM1061 IC, not seen in pictures. 
+                <img class = "center-img" src="../images/PINTRY/niceview.jpg" alt="Pintry-X2 Enclosure Overview" style="width: 65% ; height: auto;">
+                <figcaption style="text-align: center">Pintry-X2 Enclosure Overview</figcaption><br>
+                <img class = "center-img" src="../images/PINTRY/FANinside.jpg" alt="60mm FAN inside" style="width: 65% ; height: auto;">
+                <img class = "center-img" src="../images/PINTRY/FANoutside.jpg" alt="60mm FAN outside" style="width: 65% ; height: auto;">
+                <figcaption style="text-align: center">60MM Cooling Fan</figcaption><br> 
+                <p>The fan only turns on when needed as I have used the 'gpio-fan' overlay as explained on the Github README page.</p>
+                <p>The two drives are held by M3 screws and they slide into the case, which you can see in the picture below.</p>
+                <img class = "center-img" src="../images/PINTRY/SIDE1drive.jpg" alt="Pintry-X2 - Inside View" style="width: 65% ; height: auto;">
+                <figcaption style="text-align: center">Pintry-X2 - Inside View</figcaption><br> 
+                <h2>Closing thoughts</h2>
+                <p>I am not selling the bare / assembled PCBs or entire Pintry-X2 units. You can, however, make it yourself as all the required information is on the Github pge. If you have any questions about the project, feel free to <a href="contact.html">contact me</a></p>
                 <br>
                 <br>
             </div>
