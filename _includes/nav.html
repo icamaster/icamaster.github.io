@@ -1,0 +1,40 @@
+{%- comment -%}
+  Active state is decided by `nav_active` in a page's front matter, falling back
+  to a URL prefix match so blog posts light up the Blog tab.
+{%- endcomment -%}
+{%- assign active = page.nav_active -%}
+{%- if active == nil -%}
+  {%- if page.url == "/" -%}{%- assign active = "home" -%}
+  {%- elsif page.url contains "/blog" -%}{%- assign active = "blog" -%}
+  {%- elsif page.url contains "/about" -%}{%- assign active = "about" -%}
+  {%- elsif page.url contains "/contact" -%}{%- assign active = "contact" -%}
+  {%- endif -%}
+{%- endif -%}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item{% if active == 'home' %} active{% endif %}">
+          <a class="nav-link" href="{{ '/' | relative_url }}">Home{% if active == 'home' %}
+            <span class="sr-only">(current)</span>{% endif %}</a>
+        </li>
+        <li class="nav-item{% if active == 'about' %} active{% endif %}">
+          <a class="nav-link" href="{{ '/about.html' | relative_url }}">About{% if active == 'about' %}
+            <span class="sr-only">(current)</span>{% endif %}</a>
+        </li>
+        <li class="nav-item{% if active == 'blog' %} active{% endif %}">
+          <a class="nav-link" href="{{ '/blog/' | relative_url }}">Blog{% if active == 'blog' %}
+            <span class="sr-only">(current)</span>{% endif %}</a>
+        </li>
+        <li class="nav-item{% if active == 'contact' %} active{% endif %}">
+          <a class="nav-link" href="{{ '/contact.html' | relative_url }}">Contact{% if active == 'contact' %}
+            <span class="sr-only">(current)</span>{% endif %}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

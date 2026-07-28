@@ -1,0 +1,62 @@
+{%- comment -%}
+  Renders one portfolio card.
+
+  Call it either with a homepage entry:      {% include card.html item=entry %}
+  or directly with a post object:            {% include card.html post=post %}
+
+  A homepage entry is one of two shapes (see _data/homepage.yml):
+
+    - post: some-post-slug        # metadata is read from the post's front matter
+    - url: https://example.com/   # everything spelled out inline
+      title: "..."
+      image: /images/foo.jpg
+      tag: "AllAboutCircuits Article"
+      blurb: "..."
+{%- endcomment -%}
+
+{%- assign item = include.item -%}
+{%- assign post = include.post -%}
+{%- assign missing = false -%}
+
+{%- if item and item.post -%}
+  {%- assign post = site.posts | where: "slug", item.post | first -%}
+  {%- if post == nil -%}{%- assign missing = true -%}{%- endif -%}
+{%- endif -%}
+
+{%- if missing -%}
+<!-- card.html: no post found with slug "{{ item.post }}" - check _data/homepage.yml -->
+{%- else -%}
+  {%- if post -%}
+    {%- assign card_url   = post.url -%}
+    {%- assign card_title = post.title -%}
+    {%- assign card_image = post.image -%}
+    {%- assign card_tag   = post.tag -%}
+    {%- assign card_blurb = post.blurb | default: post.excerpt | strip_html | strip -%}
+  {%- else -%}
+    {%- assign card_url   = item.url -%}
+    {%- assign card_title = item.title -%}
+    {%- assign card_image = item.image -%}
+    {%- assign card_tag   = item.tag -%}
+    {%- assign card_blurb = item.blurb -%}
+  {%- endif -%}
+
+  {%- comment -%} Leave absolute URLs alone; make site-relative ones baseurl-aware. {%- endcomment -%}
+  {%- unless card_url contains "://" -%}{%- assign card_url = card_url | relative_url -%}{%- endunless -%}
+  {%- if card_image and card_image != "" -%}
+    {%- unless card_image contains "://" -%}{%- assign card_image = card_image | relative_url -%}{%- endunless -%}
+  {%- endif -%}
+
+        <div class="col-lg-4 col-sm-6 portfolio-item">
+          <div class="card h-100">
+            {%- if card_image and card_image != "" %}
+            <a target="_blank" href="{{ card_url }}"><img class="card-img-top" src="{{ card_image }}" alt=""></a>
+            {%- endif %}
+            <div class="card-body">
+              <h4 class="card-title">
+                <a target="_blank" href="{{ card_url }}">{{ card_title }}</a>
+              </h4>
+              <p class="card-text">{% if card_tag and card_tag != "" %}<b>{{ card_tag }}:</b> {% endif %}{{ card_blurb }}</p>
+            </div>
+          </div>
+        </div>
+{%- endif -%}

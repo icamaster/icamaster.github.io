@@ -1,0 +1,43 @@
+# --- Site metadata -----------------------------------------------------------
+title: Cezar Chirila
+tagline: Projects and Articles
+description: >-
+  This webpage is a collection of Cezar Chirila's projects. Feel free to contact him for collaboration.
+author: Cezar Chirila
+keywords: "Cezar Chirila, Chirila Cezar"
+
+url: "https://www.cezarchirila.com"
+baseurl: ""
+
+# Google Analytics 4 measurement ID, e.g. G-XXXXXXXXXX. Leave blank to emit no
+# tracking code at all.
+google_analytics: "G-595QL26Y1Z"
+
+# --- Build -------------------------------------------------------------------
+markdown: kramdown
+permalink: /blog/:year/:month/:title/
+
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+
+# NOTE: setting `exclude` REPLACES Jekyll's defaults, so the defaults that still
+# matter are repeated here. `vendor/bootstrap` and `vendor/jquery` must NOT be
+# excluded - they are the site's actual CSS/JS.
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - .jekyll-cache/
+
+# --- Defaults ----------------------------------------------------------------
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post

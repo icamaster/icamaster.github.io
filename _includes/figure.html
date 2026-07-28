@@ -1,0 +1,17 @@
+{%- comment -%}
+  Centered image with a caption, matching the styling used on the existing
+  hand-written project pages.
+
+    {% include figure.html src="/images/PINTRY/PCBfront.jpg"
+                           alt="Pintry-X2 PCB Front"
+                           caption="Pintry-X2 PCB Front" %}
+
+  `width` is optional and defaults to 65%, the value used across the old pages.
+{%- endcomment -%}
+{%- assign src = include.src -%}
+{%- unless src contains "://" -%}{%- assign src = src | relative_url -%}{%- endunless -%}
+<img class="center-img" src="{{ src }}" alt="{{ include.alt }}" style="width: {{ include.width | default: '65%' }}; height: auto;">
+{%- if include.caption %}
+<figcaption>{{ include.caption }}</figcaption>
+{%- endif %}
+<br>

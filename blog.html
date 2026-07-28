@@ -1,0 +1,31 @@
+---
+layout: default
+title: Blog
+nav_active: blog
+permalink: /blog/
+description: Articles and project write-ups by Cezar Chirila.
+---
+<!-- Page Content -->
+<div class="container">
+
+  <h1 class="my-4">Blog</h1>
+
+  {%- if site.posts.size == 0 %}
+  <p>Nothing here yet. Older articles live on my
+    <a target="_blank" href="https://cezarchirila.wordpress.com/">previous blog</a>.</p>
+  {%- else %}
+  {%- assign posts_by_year = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
+  {%- for year in posts_by_year %}
+  <ul class="archive-list">
+    {%- for post in year.items %}
+    <li>
+      <time class="archive-date" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%-d %b %Y" }}</time>
+      <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+    </li>
+    {%- endfor %}
+  </ul>
+  {%- endfor %}
+  {%- endif %}
+
+</div>
+<!-- /.container -->

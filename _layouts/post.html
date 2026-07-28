@@ -1,0 +1,43 @@
+---
+layout: default
+---
+<div class="container" style="padding-top: 5%">
+
+  <h1>{{ page.title }}</h1>
+  <p class="text-muted post-meta">
+    <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%-d %B %Y" }}</time>
+  </p>
+  <hr>
+
+  <div class="post-content">
+    {{ content }}
+  </div>
+
+  <hr>
+
+  {%- comment -%}
+    page.previous is the older post, page.next the newer one. Either can be
+    nil at the ends of the archive, so each side is rendered independently and
+    the columns keep their width so a lone link stays on its own side.
+  {%- endcomment -%}
+  <nav class="row align-items-center post-nav">
+    <div class="col-12 col-sm-4 text-center text-sm-left">
+      {%- if page.previous %}
+      <small class="text-muted">Older</small><br>
+      <a href="{{ page.previous.url | relative_url }}" rel="prev">&laquo; {{ page.previous.title }}</a>
+      {%- endif %}
+    </div>
+    <div class="col-12 col-sm-4 text-center">
+      <a href="{{ '/blog/' | relative_url }}">All posts</a>
+    </div>
+    <div class="col-12 col-sm-4 text-center text-sm-right">
+      {%- if page.next %}
+      <small class="text-muted">Newer</small><br>
+      <a href="{{ page.next.url | relative_url }}" rel="next">{{ page.next.title }} &raquo;</a>
+      {%- endif %}
+    </div>
+  </nav>
+  <br>
+
+</div>
+<!-- /.container -->

@@ -1,0 +1,114 @@
+# -----------------------------------------------------------------------------
+# Homepage cards, in the exact order they appear on the page.
+# Reorder by moving entries around; nothing here is date-driven.
+#
+# Two shapes are accepted:
+#
+#   - post: my-post-slug          <- a post in _posts/. Title, image, tag and
+#                                    blurb are read from its front matter, so
+#                                    adding a new article to the homepage is a
+#                                    one-line change. The slug is the filename
+#                                    without the date and extension:
+#                                    _posts/2026-08-01-my-post-slug.md
+#
+#   - url: https://example.com/   <- anything else: external articles and the
+#     title: "..."                   older hand-written pages under /projects/.
+#     image: /images/foo.jpg         Spell the fields out here.
+#     tag: "AllAboutCircuits Article"
+#     blurb: "..."
+#
+# `tag` is optional and renders bold before the blurb. `blurb` may contain HTML.
+# -----------------------------------------------------------------------------
+
+- url: /projects/pintry-x2.html
+  title: "Two-bay NAS based on the RPi Compute Module 4"
+  image: /images/PINTRY/Pintry_frontpage.jpg
+  tag: "Personal Project (WIP)"
+  blurb: >-
+    Two-bay NAS based on the RPi Compute Module 4 which uses the ASMedia AS1061 PCIe to SATA bridge to be able to connect two drives, either 3.5'/2.5' HDD or 2.5' SSD.
+
+- url: https://aijourn.com/how-to-ensure-you-have-the-right-software-development-to-optimise-your-products-success/
+  title: "Article written at Ignys for The AI Journal regarding software development best practices"
+  image: /images/aijourn.jpg
+  tag: "Ignys article"
+  blurb: >-
+    Article regarding software development practices that I have written whilst being employed by <a href="https://ignys.co.uk">Ignys</a>.
+
+- url: /projects/thermal-imaging-camera.html
+  title: "Thermal Imaging Camera using a MLX90621 sensor"
+  image: /images/thermalcamera.jpg
+  tag: "Diploma Project"
+  blurb: >-
+    Budget Thermal Imaging Camera Using a Far Infrared Sensor. Specifications: IR Resolution - 16x4, STM32F446 µC, 1.8' LCD display, USB port (data and charging), 1000mAh Li-Po
+
+- url: https://www.allaboutcircuits.com/projects/how-to-DIY-waveform-generator-analog-devices-ad9833-ATmega328p/
+  title: "Function Generator with Analog Devices’ AD9833"
+  image: /images/signalgen.jpg
+  tag: "AllAboutCircuits Article"
+  blurb: >-
+    Learn how to make your own arbitrary waveform generator using an ATmega328p, a DDS function generator IC, an op-amp, a few passives, and some hard work.
+
+- url: http://www.allaboutcircuits.com/projects/do-it-yourself-soldering-station-with-an-atmega8/
+  title: "Do-It-Yourself Soldering Station with an ATmega8"
+  image: /images/soldering.jpg
+  tag: "AllAboutCircuits Article"
+  blurb: >-
+    The mighty soldering iron. If you need one, want one, or just love to build stuff, then this project is for you.
+
+- url: /documents/SSET_2017_Cezar_Chirila.pdf
+  title: "Optical Spectrometer"
+  image: /images/spectrometer.jpg
+  blurb: >-
+    My implementation of an Optical Spectrometer using a STM32F103 board and a custom 3D-printed enclosure that contains a diffraction grating. This was an entry for SSET. Most of it is based on another <a target="_blank" href="https://tcd1304.wordpress.com">project</a> by Esben Rossel, a danish high school chemistry teacher.
+
+- url: https://www.allaboutcircuits.com/projects/how-to-build-a-class-d-power-amplifier/
+  title: "How to build a class D power amplifier"
+  image: /images/ClassD.jpg
+  tag: "AllAboutCircuits Article"
+  blurb: >-
+    The mighty Class-D amplifier—build one yourself and be amazed by its efficiency. The heat sink barely gets warm!
+
+- url: https://www.allaboutcircuits.com/technical-articles/driving-led-arrays-with-an-arduino/
+  title: "Driving LED arrays with a microcontroller"
+  image: /images/LEDarray.jpg
+  tag: "AllAboutCircuits Article"
+  blurb: >-
+    Learn the basics of LED arrays and how to power them using a microcontroller. Check my LED table for a practical implementation of what is written in the article.
+
+- url: https://www.allaboutcircuits.com/projects/house-monitoring-framework-with-arduino-and-raspberry-pi/
+  title: "House-Monitoring Framework with Arduino and Raspberry Pi"
+  image: /images/paranoid.jpg
+  tag: "AllAboutCircuits Article"
+  blurb: >-
+    So you have a Raspberry Pi and an Arduino and you want to develop a system to monitor and control your home. If I'm reading your mind correctly, after you're done reading this article you will be able to do exactly what you want.
+
+- url: https://www.allaboutcircuits.com/projects/diy-arduino-based-sous-vide-machine/
+  title: "DIY Arduino-Based Sous-Vide Machine"
+  image: /images/sousvide.jpg
+  tag: "AllAboutCircuits Article"
+  blurb: >-
+    Build your very own sous-vide machine and get perfectly cooked meals with high-precision temperature control. Grab your Arduino, a rice cooker, and a temperature sensor and let's get started.
+
+- url: https://cezarchirila.wordpress.com/2015/10/12/arduino-led-coffee-table/
+  title: "Arduino LED Coffee Table"
+  image: /images/LEDtable.jpg
+  blurb: >-
+    Using the knowledge that I shared on my "Driving LED arrays" article, I built a simple LED table using an ATMEGA328 microcontroller. The most difficult part was building the table itself and putting all the leds manually in their place.
+
+- url: https://cezarchirila.wordpress.com/2015/07/23/prusa-i3-fdm-3d-printer-2/
+  title: "Prusa i3 - FDM 3D Printer"
+  image: /images/prusai3.jpg
+  blurb: >-
+    The printer is a Prusa i3 rework. I built it following the reprap project using mostly scavanged parts. A BOM can be found on the blog post. Not the best design (although some might argue) but well suited for a first printer.
+
+- url: https://cezarchirila.wordpress.com/2014/12/25/esp8266-arduino-webserver/
+  title: "ESP8266 Arduino Webserver"
+  image: /images/ESP8266.jpg
+  blurb: >-
+    A sketch with a simple modified webserver for the ESP8266 AT firmware using an arduino.
+
+- url: https://cezarchirila.wordpress.com/2011/12/26/hi-there/
+  title: "LED Light Organ"
+  image: /images/LEDorgan.jpg
+  blurb: >-
+    This is a project I did way back in 2010. It is a light organ on three channels. Schematic drawn by Collin @ MakeMagazine

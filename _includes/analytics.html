@@ -1,0 +1,23 @@
+{%- comment -%}
+  Google Analytics 4.
+
+  Set `google_analytics` in _config.yml to your measurement ID (G-XXXXXXXXXX)
+  to switch this on. Leaving it blank or absent emits nothing at all.
+
+  Only rendered for production builds, so `jekyll serve` on localhost does not
+  pollute your statistics. The deploy workflow sets JEKYLL_ENV=production.
+{%- endcomment -%}
+{%- comment -%}
+  Note the explicit != "" test: Liquid treats an empty string as truthy, so a
+  bare `if site.google_analytics` would emit a broken tag with a blank ID.
+{%- endcomment -%}
+{%- if site.google_analytics and site.google_analytics != "" and jekyll.environment == "production" %}
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id={{ site.google_analytics }}"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', '{{ site.google_analytics }}');
+</script>
+{%- endif -%}
