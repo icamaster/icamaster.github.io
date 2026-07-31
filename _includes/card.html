@@ -40,8 +40,16 @@
     {%- assign card_blurb = item.blurb -%}
   {%- endif -%}
 
-  {%- comment -%} Leave absolute URLs alone; make site-relative ones baseurl-aware. {%- endcomment -%}
-  {%- unless card_url contains "://" -%}{%- assign card_url = card_url | relative_url -%}{%- endunless -%}
+  {%- comment -%}
+    Absolute URLs are left alone and open in a new tab; site-relative ones are
+    made baseurl-aware and stay in the current tab.
+  {%- endcomment -%}
+  {%- if card_url contains "://" -%}
+    {%- assign card_target = ' target="_blank" rel="noopener"' -%}
+  {%- else -%}
+    {%- assign card_target = "" -%}
+    {%- assign card_url = card_url | relative_url -%}
+  {%- endif -%}
   {%- if card_image and card_image != "" -%}
     {%- unless card_image contains "://" -%}{%- assign card_image = card_image | relative_url -%}{%- endunless -%}
   {%- endif -%}
@@ -49,11 +57,11 @@
         <div class="col-lg-4 col-sm-6 portfolio-item">
           <div class="card h-100">
             {%- if card_image and card_image != "" %}
-            <a target="_blank" href="{{ card_url }}"><img class="card-img-top" src="{{ card_image }}" alt=""></a>
+            <a href="{{ card_url }}"{{ card_target }}><img class="card-img-top" src="{{ card_image }}" alt=""></a>
             {%- endif %}
             <div class="card-body">
               <h4 class="card-title">
-                <a target="_blank" href="{{ card_url }}">{{ card_title }}</a>
+                <a href="{{ card_url }}"{{ card_target }}>{{ card_title }}</a>
               </h4>
               <p class="card-text">{% if card_tag and card_tag != "" %}<b>{{ card_tag }}:</b> {% endif %}{{ card_blurb }}</p>
             </div>
