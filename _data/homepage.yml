@@ -36,18 +36,13 @@
     Two-bay NAS based on the RPi Compute Module 4 which uses the ASMedia AS1061 PCIe to SATA bridge to be able to connect two drives, either 3.5'/2.5' HDD or 2.5' SSD.
 
 - url: https://aijourn.com/how-to-ensure-you-have-the-right-software-development-to-optimise-your-products-success/
-  title: "Article written at Ignys for The AI Journal regarding software development best practices"
+  title: "The AI Journal: Software development best practices"
   image: /images/aijourn.jpg
   tag: "Ignys article"
   blurb: >-
     Article regarding software development practices that I have written whilst being employed by <a href="https://ignys.co.uk" target="_blank" rel="noopener">Ignys</a>.
 
-- url: /projects/thermal-imaging-camera.html
-  title: "Thermal Imaging Camera using a MLX90621 sensor"
-  image: /images/thermalcamera.jpg
-  tag: "Diploma Project"
-  blurb: >-
-    Budget Thermal Imaging Camera Using a Far Infrared Sensor. Specifications: IR Resolution - 16x4, STM32F446 µC, 1.8' LCD display, USB port (data and charging), 1000mAh Li-Po
+- post: picothermal
 
 - url: https://www.allaboutcircuits.com/projects/how-to-DIY-waveform-generator-analog-devices-ad9833-ATmega328p/
   title: "Function Generator with Analog Devices’ AD9833"
@@ -56,12 +51,12 @@
   blurb: >-
     Learn how to make your own arbitrary waveform generator using an ATmega328p, a DDS function generator IC, an op-amp, a few passives, and some hard work.
 
-- url: http://www.allaboutcircuits.com/projects/do-it-yourself-soldering-station-with-an-atmega8/
-  title: "Do-It-Yourself Soldering Station with an ATmega8"
-  image: /images/soldering.jpg
-  tag: "AllAboutCircuits Article"
+- url: /projects/thermal-imaging-camera.html
+  title: "Thermal Imaging Camera using a MLX90621 sensor"
+  image: /images/thermalcamera.jpg
+  tag: "Diploma Project"
   blurb: >-
-    The mighty soldering iron. If you need one, want one, or just love to build stuff, then this project is for you.
+    Budget Thermal Imaging Camera Using a Far Infrared Sensor. Specifications: IR Resolution - 16x4, STM32F446 µC, 1.8' LCD display, USB port (data and charging), 1000mAh Li-Po
 
 - url: /documents/SSET_2017_Cezar_Chirila.pdf
   title: "Optical Spectrometer"
@@ -75,6 +70,13 @@
   tag: "AllAboutCircuits Article"
   blurb: >-
     The mighty Class-D amplifier—build one yourself and be amazed by its efficiency. The heat sink barely gets warm!
+
+- url: http://www.allaboutcircuits.com/projects/do-it-yourself-soldering-station-with-an-atmega8/
+  title: "Do-It-Yourself Soldering Station with an ATmega8"
+  image: /images/soldering.jpg
+  tag: "AllAboutCircuits Article"
+  blurb: >-
+    The mighty soldering iron. If you need one, want one, or just love to build stuff, then this project is for you.
 
 - url: https://www.allaboutcircuits.com/technical-articles/driving-led-arrays-with-an-arduino/
   title: "Driving LED arrays with a microcontroller"

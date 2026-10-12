@@ -10,3 +10,6 @@ vendor/bundle/
 # Editor / OS noise
 .DS_Store
 Thumbs.db
+
+# Keep drafts local
+_drafts/**
