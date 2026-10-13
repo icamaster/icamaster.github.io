@@ -26,8 +26,15 @@ I then realised that the easiest way to get a larger screen and a better battery
 
 The hardware itself is actually extremely simple. First, I selected a RP2040 microcontroller (I build this before the RP2350 was released), although I should have probably used an STM32 that supports USB2.0, instead of being stuck on USB1.1. Then a USB-C connector, a buck converter to do the 5V -> 3V3 conversion and a few LDOs for the other rails that the uC and the sensor require and just some other misc components. No battery, no charge controller, no microSD, everything needed is already present on the phone. You can see the schematic below, courtesy of [Kicanvas](https://kicanvas.org).
 
+<script>
+  try {
+    if (!localStorage.getItem("kc:prefs:theme"))
+      localStorage.setItem("kc:prefs:theme", JSON.stringify({ val: "kicad" }));
+  } catch (e) {}
+</script>
+<script type="module" src="/vendor/kicanvas/kicanvas.js"></script>
 <div class="kicanvas-wrap">
-  <kicanvas-embed controls="full" style="height: 600px;">
+  <kicanvas-embed controls="full" theme="kicad" style="height: 600px;">
     <kicanvas-source src="https://raw.githubusercontent.com/icamaster/picothermal/refs/tags/v1.0/picothermal-hardware/picothermal-hardware.kicad_pro"></kicanvas-source>
     <kicanvas-source src="https://raw.githubusercontent.com/icamaster/picothermal/refs/tags/v1.0/picothermal-hardware/picothermal-hardware.kicad_sch"></kicanvas-source>
     <kicanvas-source src="https://raw.githubusercontent.com/icamaster/picothermal/refs/tags/v1.0/picothermal-hardware/power_supplies.kicad_sch"></kicanvas-source>
