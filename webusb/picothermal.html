@@ -1,7 +1,7 @@
 <!doctype html>
 <!--
-  WebUSB test page for the picothermal camera. WebUSB needs a secure context:
-  serve it over localhost (python -m http.server 8000 --directory docs) or
+  WebUSB web app for the picothermal camera. WebUSB needs a secure context:
+  serve it over localhost (python -m http.server 8000 --directory webapp) or
   HTTPS, then open it in Chrome or Edge, desktop or Android.
 
   The camera streams radiometric Y16 frames (TLinear, centikelvin). All colour
@@ -54,6 +54,14 @@
   .ctl { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
   .ctl label { display: inline-flex; gap: .3rem; align-items: center; }
   .hint { color: var(--muted); font-size: 12px; }
+
+  dialog { max-width: min(34rem, calc(100vw - 2rem)); box-sizing: border-box; background: var(--panel); color: var(--fg); border: 1px solid var(--line); border-radius: 6px; padding: 1rem 1.25rem; }
+  dialog::backdrop { background: rgba(0,0,0,.6); }
+  dialog h2 { font-size: 1.05rem; margin: 0 0 .5rem; }
+  dialog p { margin: .5rem 0; line-height: 1.4; }
+  dialog a { color: inherit; }
+  dialog pre { background: #111; border: 1px solid var(--line); border-radius: 4px; padding: .5rem; overflow-x: auto; font-size: 12px; margin: .5rem 0; }
+  dialog .actions { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: .5rem; margin-top: .75rem; }
 </style>
 </head>
 <body>
@@ -185,8 +193,23 @@
         <span class="hint">also runs by itself every few minutes</span>
       </div>
     </div>
+    <div class="row">
+      <span class="label">Firmware</span>
+      <div class="ctl">
+        <button id="update" disabled>Update&hellip;</button>
+        <span class="hint">restarts the camera as a USB drive</span>
+      </div>
+    </div>
   </section>
 </main>
+
+<dialog id="notice">
+  <div id="notice-body"></div>
+  <form method="dialog" class="actions">
+    <button id="notice-mute" value="mute" hidden>Don't show again</button>
+    <button value="close" autofocus>OK</button>
+  </form>
+</dialog>
 
 <script>
 const VID = 0x1209, PID = 0x0001;
@@ -197,7 +220,7 @@ const FLAG_FFC = 1 << 0;
 const TICKS = 5;
 
 // Host commands: opcode, then a little-endian 16-bit argument.
-const CMD_SET_GAIN = 0x02, CMD_RUN_FFC = 0x03, CMD_SET_EMISSIVITY = 0x04;
+const CMD_SET_GAIN = 0x02, CMD_RUN_FFC = 0x03, CMD_SET_EMISSIVITY = 0x04, CMD_REBOOT_TO_BOOTLOADER = 0x05;
 const EMISSIVITY_ONE = 8192;  // the camera's fixed-point 1.0
 
 // Each palette is a list of evenly spaced colour stops, expanded into a
@@ -344,6 +367,23 @@ $('gain').onchange = () => {
 };
 $('calibrate').onclick = () => send(CMD_RUN_FFC);
 
+// Updating uses the RP2040's ROM bootloader rather than streaming the image
+// over WebUSB: the ROM cannot be overwritten, so a failed copy never leaves a
+// camera that cannot be updated again.
+const RELEASES = 'https://github.com/icamaster/picothermal-fw/releases/latest';
+$('update').onclick = async () => {
+  if (!confirm('Restart the camera into its USB bootloader to install new firmware? Streaming stops until the update is done.')) return;
+  await send(CMD_REBOOT_TO_BOOTLOADER);
+  showNotice(
+    '<h2>Install the new firmware</h2>' +
+      `<p>1. Download the <code>.uf2</code> file from the <a href="${RELEASES}" target="_blank" rel="noopener">latest release</a>.</p>` +
+      '<p>2. Copy it onto the <code>RPI-RP2</code> drive the camera now shows up as. The camera restarts by itself once the copy finishes.</p>' +
+      '<p>3. Press Connect again.</p>' +
+      '<p>No drive? On Android, only phones that support USB drives show it. If the camera is still streaming, its firmware predates this button: hold BOOTSEL while plugging it in instead.</p>',
+    false,
+  );
+};
+
 // Holding a stepper button repeats quickly; only the value it settles on needs
 // to reach the camera.
 let emissivityTimer;
@@ -450,14 +490,30 @@ $('connect').onclick = async () => {
     // with a camera streaming. Both swap back if the device disconnects.
     $('connect').hidden = true;
     $('save').hidden = false;
-    for (const el of document.querySelectorAll('#gain, #calibrate, #emissivity, #material, [data-for=emissivity]')) el.disabled = false;
+    for (const el of document.querySelectorAll('#gain, #calibrate, #update, #emissivity, #material, [data-for=emissivity]')) el.disabled = false;
     if (camera.gain !== 0) sendGain();
     if (camera.emissivity !== 1) sendEmissivity();
+    keepAwake();
     stream();
   } catch (err) {
     $('stats').textContent = `connect failed: ${err.message}`;
   }
 };
+
+// A phone would otherwise dim and lock mid-stream, since watching the image
+// involves no touches. The browser drops the lock whenever the page is hidden,
+// so it has to be requested again on return.
+let wakeLock = null;
+async function keepAwake() {
+  if (!('wakeLock' in navigator) || wakeLock || document.visibilityState !== 'visible') return;
+  try {
+    wakeLock = await navigator.wakeLock.request('screen');
+    wakeLock.addEventListener('release', () => { wakeLock = null; });
+  } catch {
+    // Refused, e.g. battery saver on: the page still works, the screen just sleeps.
+  }
+}
+document.addEventListener('visibilitychange', () => { if ($('connect').hidden) keepAwake(); });
 
 async function stream() {
   for (;;) {
@@ -468,6 +524,7 @@ async function stream() {
       $('stats').textContent = `disconnected: ${err.message}`;
       $('connect').hidden = false;
       $('save').hidden = true;
+      wakeLock?.release();
       return;
     }
     if (result.status === 'ok' && result.data.byteLength >= HEADER_LEN) receive(result.data);
@@ -671,6 +728,68 @@ function saveImage() {
   }, 'image/png');
 }
 $('save').onclick = saveImage;
+
+// Platform check on load. WebUSB is Chromium-only, and on Linux the browser can
+// list the camera yet fail to open it, because the device node is root-owned
+// until a udev rule grants it to the desktop user. Both look like a broken
+// camera, so say so before the user ever presses Connect.
+const README_PLATFORMS = 'https://github.com/icamaster/picothermal-fw#platforms';
+const LINUX_NOTICE_KEY = 'picothermal.hideLinuxNotice';
+
+function showNotice(html, mutable) {
+  const dialog = $('notice');
+  $('notice-body').innerHTML = html;
+  $('notice-mute').hidden = !mutable;
+  if (dialog.showModal) dialog.showModal(); else dialog.setAttribute('open', '');
+}
+
+function checkPlatform() {
+  const ua = navigator.userAgent;
+  // iPadOS reports itself as a Mac, so a touch screen gives it away.
+  const ios = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+
+  if (!('usb' in navigator)) {
+    let why;
+    if (ios) {
+      why = 'Every browser on iPhone and iPad runs on Safari\'s engine, which does not implement WebUSB, and iOS does not let apps talk to USB devices like this camera.';
+    } else if (!window.isSecureContext) {
+      why = 'WebUSB only works on pages served over HTTPS or from localhost, and this page was opened some other way.';
+    } else {
+      why = 'This browser does not implement WebUSB. Use a Chromium-based browser such as Chrome, Edge, Opera or Brave, on Windows, macOS, Linux, ChromeOS or Android.';
+    }
+    showNotice(
+      `<h2>The camera won't work here</h2><p>${why}</p>` +
+        `<p>See <a href="${README_PLATFORMS}" target="_blank" rel="noopener">supported platforms</a> for the full list.</p>`,
+      false,
+    );
+    $('connect').disabled = true;
+    $('stats').textContent = 'WebUSB is not available in this browser';
+    return;
+  }
+
+  let hidden = false;
+  try { hidden = localStorage.getItem(LINUX_NOTICE_KEY) === '1'; } catch { /* storage blocked */ }
+  if (/Linux/.test(ua) && !/Android|CrOS/.test(ua) && !hidden) {
+    const hex = (n) => n.toString(16).padStart(4, '0');
+    const rule = `SUBSYSTEM=="usb", ATTR{idVendor}=="${hex(VID)}", ATTR{idProduct}=="${hex(PID)}", TAG+="uaccess"`;
+    showNotice(
+      '<h2>One-time setup on Linux</h2>' +
+        '<p>Linux only lets root open USB devices by default, so the browser can list the camera but fail to connect. ' +
+        'Allow it for your desktop user by creating <code>/etc/udev/rules.d/50-picothermal.rules</code> containing:</p>' +
+        `<pre>${rule}</pre>` +
+        '<p>Then unplug and replug the camera. Already done? Choose "Don\'t show again".</p>' +
+        `<p><a href="${README_PLATFORMS}" target="_blank" rel="noopener">More about supported platforms</a></p>`,
+      true,
+    );
+  }
+}
+
+$('notice').addEventListener('close', () => {
+  if ($('notice').returnValue === 'mute') {
+    try { localStorage.setItem(LINUX_NOTICE_KEY, '1'); } catch { /* storage blocked: it just shows again */ }
+  }
+});
+checkPlatform();
 </script>
 </body>
 </html>
