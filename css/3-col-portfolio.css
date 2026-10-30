@@ -98,6 +98,42 @@ figcaption {
   text-align: center;
 }
 
+.post-figure {
+  margin: 0;
+}
+
+.figure-row {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.figure-row > .post-figure {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.figure-row > br {
+  display: none;
+}
+
+.figure-row img {
+  width: 100% !important;
+  max-width: 100%;
+}
+
+@media (max-width: 575px) {
+  .figure-row {
+    flex-direction: column;
+  }
+
+  .post-content img {
+    width: 100% !important;
+    max-width: 100%;
+  }
+}
+
 .post-meta {
   margin-top: -0.5rem;
 }

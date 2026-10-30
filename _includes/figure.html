@@ -7,11 +7,17 @@
                            caption="Pintry-X2 PCB Front" %}
 
   `width` is optional and defaults to 65%, the value used across the old pages.
+  `alt` is optional and defaults to the caption.
+
+  To put figures side by side, wrap several includes in
+  <div class="figure-row"> ... </div>; `width` is then ignored.
 {%- endcomment -%}
 {%- assign src = include.src -%}
 {%- unless src contains "://" -%}{%- assign src = src | relative_url -%}{%- endunless -%}
-<img class="center-img" src="{{ src }}" alt="{{ include.alt }}" style="width: {{ include.width | default: '65%' }}; height: auto;">
+<figure class="post-figure">
+<img class="center-img" src="{{ src }}" alt="{{ include.alt | default: include.caption | strip_html | escape }}" style="width: {{ include.width | default: '65%' }}; height: auto;">
 {%- if include.caption %}
 <figcaption>{{ include.caption }}</figcaption>
 {%- endif %}
+</figure>
 <br>

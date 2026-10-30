@@ -1,18 +1,15 @@
 ---
-# Copy this file to _posts/YYYY-MM-DD-my-slug.md to publish it.
-# Files in _drafts/ are ignored unless you run `jekyll serve --drafts`.
 title: "Picothermal"
 date: 2026-10-12
-# Shown on the homepage / blog cards:
 image: /images/PICOTHERMAL/picothermal.jpg
-tag: "Picothermal - WebUSB thermal imaging camera"
+tag: "WebUSB thermal imaging camera"
 blurb: >-
   USB-C thermal camera based on the Flir Lepton 3.5 ( 160 x 120 radiometric active pixels) module using RP2040. Can use any mobile or desktop as a screen via WebUSB. 
 ---
 
 {% include figure.html
    src="/images/PICOTHERMAL/picothermal.jpg"
-   alt="Picothermal" %}
+   caption="picothermal in use" %}
 
 ## Introduction
 
@@ -46,7 +43,7 @@ I ordered the boards from [Aisler](https://aisler.net/) (1.6mm thickness) and [J
 
 {% include figure.html
    src="/images/PICOTHERMAL/top-assembly.jpg"
-   alt="Picothermal" %}
+   caption="picothermal - top assembly" %}
 
 ## Firmware
 
@@ -59,7 +56,7 @@ I do feel guilty / lazy since I never got to finish the firmware (and the web ap
 
 {% include figure.html
    src="/images/PICOTHERMAL/screenshot-desktop.png"
-   alt="Picothermal" %}
+   caption="picothermal - webUSB app screenshot" %}
 
 ## Conclusion
 

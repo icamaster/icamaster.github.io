@@ -14,6 +14,7 @@ description: Articles and project write-ups by Cezar Chirila.
   <p>Nothing here yet. Older articles live on my
     <a target="_blank" href="https://cezarchirila.wordpress.com/">previous blog</a>.</p>
   {%- else %}
+  <p>My own thoughts. I don't use AI to write these so beware of grammar issues and typos. </p>
   {%- assign posts_by_year = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
   {%- for year in posts_by_year %}
   <ul class="archive-list">

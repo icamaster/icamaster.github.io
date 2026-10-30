@@ -78,6 +78,8 @@
   blurb: >-
     The mighty soldering iron. If you need one, want one, or just love to build stuff, then this project is for you.
 
+- post: usbpd-barrel
+
 - url: https://www.allaboutcircuits.com/technical-articles/driving-led-arrays-with-an-arduino/
   title: "Driving LED arrays with a microcontroller"
   image: /images/LEDarray.jpg
